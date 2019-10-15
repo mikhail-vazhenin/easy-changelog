@@ -1,0 +1,4 @@
+﻿*.user
+src/EasyChangelog/obj
+src/EasyChangelog/bin
+src/.vs
