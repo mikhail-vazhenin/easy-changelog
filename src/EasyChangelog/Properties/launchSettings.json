@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "EasyChangelog-current-version": {
+      "commandName": "Project",
+      "commandLineArgs": "-w C:\\Projects\\M1\\Global\\Dan.M1.CCS --get-version"
+    },
+    "EasyChangelog-next-version": {
+      "commandName": "Project",
+      "commandLineArgs": "-w C:\\Projects\\M1\\Global\\Dan.M1.CCS --next-version"
+    }
+  }
+}
