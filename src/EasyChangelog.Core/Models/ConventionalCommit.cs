@@ -12,6 +12,11 @@ namespace EasyChangelog.Core.Models
 
         public string Subject { get; set; }
 
+        public string Url { get; set; }
+
+        public string Sha { get; set; }
+
+        public string ShortSha { get => Sha.Substring(0, 7); }
         public List<ConventionalCommitNote> Notes { get; set; } = new List<ConventionalCommitNote>();
 
     }

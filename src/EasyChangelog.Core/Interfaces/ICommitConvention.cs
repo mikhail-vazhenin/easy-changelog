@@ -8,7 +8,7 @@ namespace EasyChangelog.Core.Interfaces
 {
     public interface ICommitConvention
     {
-        ICollection<ConventionalCommit> Parse(ICollection<Commit> commits);
-        ConventionalCommit Parse(Commit commit);
+        ICollection<ConventionalCommit> Parse(ICollection<Commit> commits, Configuration config);
+        ConventionalCommit Parse(Commit commit, Configuration config);
     }
 }

@@ -26,11 +26,8 @@ namespace EasyChangelog.Tools
             var versionTag = GetLastReleaseTag();
             var commitsInVersion = GetCommitsSinceVersion(versionTag);
 
-            return _commitConvention.Parse(commitsInVersion);
-
-
+            return _commitConvention.Parse(commitsInVersion, _repository.Config);
         }
-
 
         private ICollection<Commit> GetCommitsSinceVersion(Tag versionTag)
         {
@@ -53,9 +50,6 @@ namespace EasyChangelog.Tools
             return ParseVersion(lastVersionTag);
         }
 
-
-
-
         protected Tag GetLastReleaseTag()
         {
             return _repository.Tags.OrderBy(ParseVersion).Last();
@@ -67,7 +61,5 @@ namespace EasyChangelog.Tools
             Version.TryParse(name.Substring(1, name.Length - 1), out Version version);
             return version;
         }
-
-
     }
 }

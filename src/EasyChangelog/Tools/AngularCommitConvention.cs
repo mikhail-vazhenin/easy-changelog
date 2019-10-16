@@ -5,6 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using EasyChangelog.Core.Interfaces;
 using EasyChangelog.Core.Models;
+using EasyChangelog.Extensions;
 using LibGit2Sharp;
 
 namespace EasyChangelog.Tools
@@ -19,12 +20,12 @@ namespace EasyChangelog.Tools
         {
         }
 
-        public ICollection<ConventionalCommit> Parse(ICollection<Commit> commits)
+        public ICollection<ConventionalCommit> Parse(ICollection<Commit> commits, Configuration config)
         {
-            return commits.Select(Parse).ToList();
+            return commits.Select(c => Parse(c, config)).ToList();
         }
 
-        public ConventionalCommit Parse(Commit commit)
+        public ConventionalCommit Parse(Commit commit, Configuration config)
         {
             var conventionalCommit = new ConventionalCommit();
 
@@ -72,8 +73,21 @@ namespace EasyChangelog.Tools
                 }
             }
 
+            conventionalCommit.Sha = commit.Sha;
+            conventionalCommit.Url = GetCommitLink(commit, config);
+
+
             return conventionalCommit;
         }
 
+
+        private string GetCommitLink(Commit commit, Configuration configuration)
+        {
+
+            var repoUrl = configuration.FirstOrDefault(c => c.Key.Equals("remote.origin.url"))?.Value;
+            repoUrl = repoUrl.TrimEnd(".git");
+
+            return $"{repoUrl}/commit/{commit.Sha}";
+        }
     }
 }

@@ -41,7 +41,7 @@ namespace EasyChangelog.Core
 
                 foreach (var commit in commits)
                 {
-                    _markdownBuilder.AppendLine($"* {commit.Subject}");
+                    _markdownBuilder.AppendLine($"* {commit.Subject} ([{commit.ShortSha}]({commit.Url})");
                 }
 
             }
