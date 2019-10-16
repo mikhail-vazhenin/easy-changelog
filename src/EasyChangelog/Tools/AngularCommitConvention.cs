@@ -3,22 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using EasyChangelog.Models;
+using EasyChangelog.Core.Interfaces;
+using EasyChangelog.Core.Models;
 using LibGit2Sharp;
 
 namespace EasyChangelog.Tools
 {
-    public class ConventionalCommitParser
+    public class AngularCommitConvention : ICommitConvention
     {
         static readonly string[] noteKeywords = new string[] { "BREAKING CHANGE" };
 
         private static readonly Regex HeaderPattern = new Regex("^(?<type>\\w*)(?:\\((?<scope>.*)\\))?: (?<subject>.*)$", RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.Singleline);
 
-        public ConventionalCommitParser()
+        public AngularCommitConvention()
         {
         }
 
-        public List<ConventionalCommit> Parse(ICollection<Commit> commits)
+        public ICollection<ConventionalCommit> Parse(ICollection<Commit> commits)
         {
             return commits.Select(Parse).ToList();
         }
@@ -32,7 +33,7 @@ namespace EasyChangelog.Tools
                     StringSplitOptions.None
                 )
                 .Select(line => line.Trim())
-                .Where(line => !String.IsNullOrWhiteSpace(line))
+                .Where(line => !string.IsNullOrWhiteSpace(line))
                 .ToList();
 
             var header = commitMessageLines.FirstOrDefault();

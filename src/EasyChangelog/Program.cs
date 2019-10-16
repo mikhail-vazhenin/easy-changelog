@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Linq;
 using CommandLine;
-using EasyChangelog.Configuration;
+using EasyChangelog.CommandLine.Commands;
+using EasyChangelog.CommandLine.Options;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace EasyChangelog
@@ -10,23 +11,16 @@ namespace EasyChangelog
     {
         static void Main(string[] args)
         {
-            Parser.Default.ParseArguments<Options>(args)
-                 .WithParsed(o =>
-                 {
-                     DependencyRegistration.BuildServiceProvider(o).GetService<Workflow>().Run();
-
-                     //if (o.Verbose)
-                     //{
-                     //    Console.WriteLine($"Verbose output enabled. Current Arguments: -v {o.Verbose}");
-                     //    Console.WriteLine("Quick Start Example! App is in Verbose mode!");
-                     //}
-                     //else
-                     //{
-                     //    Console.WriteLine($"Current Arguments: -v {o.Verbose}");
-                     //    Console.WriteLine("Quick Start Example!");
-                     //}
-                 })
-                 .WithNotParsed<Options>((errs) => throw new AggregateException(errs.Select(e => new Exception(e.ToString()))));
+            Parser.Default.ParseArguments<VersionOptions, ChangelogOptions>(args)
+                 .WithParsed<VersionOptions>(versionOptions =>
+                    DependencyRegistration.BuildServiceProvider(versionOptions)
+                    .GetService<VersionCommand>()
+                    .Run(versionOptions))
+                 .WithParsed<ChangelogOptions>(changelogOptions =>
+                    DependencyRegistration.BuildServiceProvider(changelogOptions)
+                    .GetService<ChangelogCommand>()
+                    .Run(changelogOptions))
+                 .WithNotParsed((errs) => throw new AggregateException(errs.Select(e => new Exception(e.ToString()))));
         }
     }
 }

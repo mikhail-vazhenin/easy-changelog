@@ -2,44 +2,40 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using EasyChangelog.Models;
+using EasyChangelog.Core.Interfaces;
+using EasyChangelog.Core.Models;
 
 namespace EasyChangelog.Tools
 {
-    public class VersionIncrementStrategy
+    public class VersionIncrementStrategy : IVersionIncrementStrategy
     {
-        private readonly VersionImpact _versionImpact;
-
-        private VersionIncrementStrategy(VersionImpact versionImpact)
+        public Version NextVersion(Version lastVersion, ICollection<ConventionalCommit> conventionalCommits)
         {
-            _versionImpact = versionImpact;
-        }
+            var versionImpact = GetVersionImpact(conventionalCommits);
 
-        public Version NextVersion(Version version)
-        {
-            switch (_versionImpact)
+            switch (versionImpact)
             {
                 case VersionImpact.patch:
-                    return new Version(version.Major, version.Minor, version.Build + 1);
+                    return new Version(lastVersion.Major, lastVersion.Minor, lastVersion.Build + 1);
                 case VersionImpact.minor:
-                    return new Version(version.Major, version.Minor + 1, 0);
+                    return new Version(lastVersion.Major, lastVersion.Minor + 1, 0);
                 case VersionImpact.major:
-                    return new Version(version.Major + 1, 0, 0);
+                    return new Version(lastVersion.Major + 1, 0, 0);
                 case VersionImpact.none:
-                    return new Version(version.Major, version.Minor, version.Build + 1);
+                    return new Version(lastVersion.Major, lastVersion.Minor, lastVersion.Build + 1);
                 default:
-                    throw new InvalidOperationException($"Version impact of {_versionImpact} cannot be handled");
+                    throw new InvalidOperationException($"Version impact of {versionImpact} cannot be handled");
             }
         }
 
-        public static VersionIncrementStrategy CreateFrom(List<ConventionalCommit> conventionalCommits)
+        private VersionImpact GetVersionImpact(ICollection<ConventionalCommit> conventionalCommits)
         {
             // TODO: Quick and dirty implementation - Conventions? Better comparison?
             var versionImpact = VersionImpact.none;
 
             foreach (var conventionalCommit in conventionalCommits)
             {
-                if (!String.IsNullOrWhiteSpace(conventionalCommit.Type))
+                if (!string.IsNullOrWhiteSpace(conventionalCommit.Type))
                 {
                     switch (conventionalCommit.Type)
                     {
@@ -60,10 +56,10 @@ namespace EasyChangelog.Tools
                 }
             }
 
-            return new VersionIncrementStrategy(versionImpact);
+            return versionImpact;
         }
 
-        private static VersionImpact MaxVersionImpact(VersionImpact impact1, VersionImpact impact2)
+        private VersionImpact MaxVersionImpact(VersionImpact impact1, VersionImpact impact2)
         {
             return (VersionImpact)Math.Max((int)impact1, (int)impact2);
         }

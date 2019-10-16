@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace EasyChangelog.Models
+namespace EasyChangelog.Core.Models
 {
     public enum VersionImpact
     {

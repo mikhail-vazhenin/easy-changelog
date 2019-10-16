@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using EasyChangelog.Configuration;
-using EasyChangelog.Modules;
-using EasyChangelog.Modules.Interfaces;
+using EasyChangelog.CommandLine.Commands;
+using EasyChangelog.CommandLine.Options;
+using EasyChangelog.Core.Interfaces;
+using EasyChangelog.Services;
+using EasyChangelog.Services.Interfaces;
 using EasyChangelog.Tools;
 using LibGit2Sharp;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,20 +15,25 @@ namespace EasyChangelog
         private static readonly IServiceCollection _serviceCollection = new ServiceCollection();
 
 
-        private static IServiceCollection RegisterDependencies(this IServiceCollection services, Options options)
+        private static IServiceCollection RegisterDependencies(this IServiceCollection services, IOptionsBase options)
         {
-            services.AddSingleton(s => options);
+            services.AddTransient<VersionCommand>();
+            services.AddTransient<ChangelogCommand>();
 
-            services.AddTransient<Workflow>();
-            services.AddTransient<IVersionModule, GitVersionModule>();
+            services.AddTransient<IVersionService, VersionService>();
+            services.AddTransient<IChangelogService, ChangelogService>();
+
 
             services.AddTransient<IRepository, Repository>(_ => new Repository(options.WorkingDirectory));
-
-            services.AddTransient<ConventionalCommitParser>();
+            
+            services.AddTransient<ICommitConvention, AngularCommitConvention>();
+            services.AddTransient<IVersionControl, GitVersionControl>();
+            services.AddTransient<IVersionIncrementStrategy, VersionIncrementStrategy>();
+            
             return services;
         }
 
-        public static IServiceProvider BuildServiceProvider(Options options)
+        public static IServiceProvider BuildServiceProvider(IOptionsBase options)
         {
             return _serviceCollection.RegisterDependencies(options).BuildServiceProvider();
         }

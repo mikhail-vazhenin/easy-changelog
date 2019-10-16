@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace EasyChangelog.Modules.Interfaces
+namespace EasyChangelog.Services.Interfaces
 {
-    public interface IVersionModule
+    public interface IVersionService
     {
         Version GetLastReleaseVersion();
         Version GetNextReleaseVersion();
