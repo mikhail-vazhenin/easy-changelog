@@ -6,7 +6,7 @@ namespace EasyChangelog.Services.Interfaces
 {
     public interface IChangelogService
     {
-        void SaveChangelog(string workingDir);
-        string GetChangelogText(string workingDir);
+        string GetChangelog(string workingDir, Version fromVersion, Version nextVersion, bool saveToFile = false);
+        void PushChanges(string workingDir, Version nextVersion, string token);
     }
 }

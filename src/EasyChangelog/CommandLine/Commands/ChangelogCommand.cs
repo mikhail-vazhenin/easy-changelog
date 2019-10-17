@@ -1,26 +1,37 @@
 ﻿using System;
 using EasyChangelog.CommandLine.Options;
 using EasyChangelog.Services.Interfaces;
+using Version = System.Version;
 
 namespace EasyChangelog.CommandLine.Commands
 {
     public class ChangelogCommand
     {
         private readonly IChangelogService _changelogService;
+        private readonly IVersionService _versionService;
 
-        public ChangelogCommand(IChangelogService changelogService)
+        public ChangelogCommand(IChangelogService changelogService, IVersionService versionService)
         {
             _changelogService = changelogService;
+            _versionService = versionService;
         }
 
 
         public void Run(ChangelogOptions changelogOptions)
         {
-            Console.WriteLine(_changelogService.GetChangelogText(changelogOptions.WorkingDirectory));
+            var currentVersion = _versionService.GetLastReleaseVersion();
+            var nextVersion = _versionService.GetNextReleaseVersion();
+
+            var saveToFile = !changelogOptions.DryRun;
+
+            Console.WriteLine(_changelogService.GetChangelog(changelogOptions.WorkingDirectory, currentVersion, nextVersion, saveToFile));
 
             if (!changelogOptions.DryRun)
             {
-                _changelogService.SaveChangelog(changelogOptions.WorkingDirectory);
+                if (changelogOptions.Push)
+                {
+                    _changelogService.PushChanges(changelogOptions.WorkingDirectory, nextVersion, changelogOptions.GitToken);
+                }
             }
         }
     }

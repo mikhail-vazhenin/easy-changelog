@@ -9,17 +9,15 @@ namespace EasyChangelog.Core
 {
     public class ChangelogBuilder
     {
-        private string workingDir;
         private string changeLogFilename;
         private FileInfo _changelogFile;
         StringBuilder _markdownBuilder = new StringBuilder();
 
-        public ChangelogBuilder(string workingDir, string changelogFilename)
+        public ChangelogBuilder(string changelogFilename)
         {
-            this.workingDir = workingDir;
             this.changeLogFilename = changelogFilename;
 
-            _changelogFile = new FileInfo(Path.Combine(workingDir, "CHANGELOG.md"));
+            _changelogFile = new FileInfo(changelogFilename);
         }
 
         public ChangelogBuilder AddVersionHeader(Version version, DateTime? versionDate)
@@ -32,9 +30,9 @@ namespace EasyChangelog.Core
             return this;
         }
 
-        public ChangelogBuilder AddBlock(string header, IEnumerable<ConventionalCommit> commits)
+        public ChangelogBuilder AddBlock(string header, ICollection<ConventionalCommit> commits)
         {
-            if (commits.Any())
+            if (commits.Count > 0)
             {
                 _markdownBuilder.Append("### ").AppendLine(header);
                 _markdownBuilder.AppendLine();
@@ -43,31 +41,9 @@ namespace EasyChangelog.Core
                 {
                     _markdownBuilder.AppendLine($"* {commit.Subject} ([{commit.ShortSha}]({commit.Url})");
                 }
-
             }
 
             return this;
-        }
-
-        public void Save()
-        {
-            if (_changelogFile.Exists)
-            {
-                var contents = File.ReadAllText(_changelogFile.FullName);
-
-                var firstReleaseHeadlineIdx = contents.IndexOf("##");
-
-                if (firstReleaseHeadlineIdx >= 0)
-                {
-                    contents = contents.Substring(firstReleaseHeadlineIdx);
-                }
-
-                _markdownBuilder.AppendLine(contents);
-            }
-
-            var newContent = this.ToString();
-
-            File.WriteAllText(Path.Combine(workingDir, "CHANGELOG.md"), newContent);
         }
 
         public override string ToString()

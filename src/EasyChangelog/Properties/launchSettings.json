@@ -2,15 +2,15 @@
   "profiles": {
     "EasyChangelog-current-version": {
       "commandName": "Project",
-      "commandLineArgs": "version -w C:\\Projects\\M1\\Global\\Dan.M1.CCS --current"
+      "commandLineArgs": "current-version -w C:\\Projects\\M1\\Global\\Dan.M1.CCS "
     },
     "EasyChangelog-next-version": {
       "commandName": "Project",
-      "commandLineArgs": "version -w C:\\Projects\\M1\\Global\\Dan.M1.CCS --next"
+      "commandLineArgs": "next-version -w C:\\Projects\\M1\\Global\\Dan.M1.CCS"
     },
     "EasyChangelog-view-changelog": {
       "commandName": "Project",
-      "commandLineArgs": "changelog -w C:\\Projects\\M1\\Global\\Dan.M1.CCS --dry-run"
+      "commandLineArgs": "changelog -w C:\\Projects\\M1\\Global\\Dan.M1.CCS -p -t nxGPo_bQxbYXVzR_D2rJ"
     }
   }
 }

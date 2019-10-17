@@ -17,7 +17,8 @@ namespace EasyChangelog
 
         private static IServiceCollection RegisterDependencies(this IServiceCollection services, IOptionsBase options)
         {
-            services.AddTransient<VersionCommand>();
+            services.AddTransient<CurrentVersionCommand>();
+            services.AddTransient<NextVersionCommand>();
             services.AddTransient<ChangelogCommand>();
 
             services.AddTransient<IVersionService, VersionService>();

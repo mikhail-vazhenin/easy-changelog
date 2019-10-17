@@ -13,6 +13,8 @@ namespace EasyChangelog.Services
 {
     public class ChangelogService : IChangelogService
     {
+        const string changelogName = "CHANGELOG.md";
+
         private readonly IVersionControl _versionControl;
 
         public ChangelogService(IVersionControl versionControl)
@@ -20,26 +22,60 @@ namespace EasyChangelog.Services
             _versionControl = versionControl;
         }
 
-        public void SaveChangelog(string workingDir)
+        public string GetChangelog(string workingDir, Version fromVersion, Version nextVersion, bool saveToFile = false)
         {
-            GetChangelog(workingDir).Save();
+            var changelogFullName = GetChangelogFullname(workingDir);
+            var changelogText = BuildChangelog(changelogFullName, fromVersion, nextVersion).ToString();
+
+            if (saveToFile)
+            {
+                SaveChangelogToFile(changelogText, changelogFullName);
+            }
+
+            return changelogText;
         }
 
-        public string GetChangelogText(string workingDir)
+        public void PushChanges(string workingDir, Version nextVersion, string token)
         {
-            return GetChangelog(workingDir).ToString();
+            var changelogFullName = GetChangelogFullname(workingDir);
+
+            var sha = _versionControl.PushChangelog(changelogFullName, nextVersion, token);
+            _versionControl.AddVersionTag(sha, nextVersion);
         }
 
-        private ChangelogBuilder GetChangelog(string workingDir)
+        private ChangelogBuilder BuildChangelog(string chnagelogFileName, Version fromVersion, Version nextVersion)
         {
-            var lastVersion = _versionControl.GetLastReleaseVersion();
-            var commits = _versionControl.GetCommits(lastVersion);
+            var commits = _versionControl.GetCommits(fromVersion);
 
-            return new ChangelogBuilder(workingDir, "CHANGELOG.md")
-                  .AddVersionHeader(lastVersion, DateTime.Today)
-                  .AddBlock("Bug Fixes", commits.Where(commit => "fix".Equals(commit.Type)))
-                  .AddBlock("Features", commits.Where(commit => "feat".Equals(commit.Type)))
-                  .AddBlock("Breaking Changes", commits.Where(commit => commit.Notes.Any(note => "BREAKING CHANGE".Equals(note.Title))));
+            return new ChangelogBuilder(chnagelogFileName)
+                  .AddVersionHeader(nextVersion, DateTime.Today)
+                  .AddBlock("Bug Fixes", commits.Where(commit => "fix".Equals(commit.Type)).ToArray())
+                  .AddBlock("Features", commits.Where(commit => "feat".Equals(commit.Type)).ToArray())
+                  .AddBlock("Breaking Changes", commits.Where(commit => commit.Notes.Any(note => "BREAKING CHANGE".Equals(note.Title))).ToArray());
+        }
+
+        private void SaveChangelogToFile(string changelogText, string changelogFullName)
+        {
+            if (File.Exists(changelogFullName))
+            {
+                var contents = File.ReadAllText(changelogFullName);
+
+                var firstReleaseHeadlineIdx = contents.IndexOf("##");
+
+                if (firstReleaseHeadlineIdx >= 0)
+                {
+                    contents = contents.Substring(firstReleaseHeadlineIdx);
+                }
+
+                changelogText += contents;
+            }
+
+            File.WriteAllText(changelogFullName, changelogText);
+        }
+
+        private string GetChangelogFullname(string workingDir)
+        {
+            return Path.Combine(workingDir, changelogName);
         }
     }
 }

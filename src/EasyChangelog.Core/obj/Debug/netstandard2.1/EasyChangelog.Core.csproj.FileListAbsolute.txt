@@ -1,0 +1,8 @@
+C:\Projects\External\easy-changelog\src\EasyChangelog.Core\bin\Debug\netstandard2.1\EasyChangelog.Core.deps.json
+C:\Projects\External\easy-changelog\src\EasyChangelog.Core\bin\Debug\netstandard2.1\EasyChangelog.Core.dll
+C:\Projects\External\easy-changelog\src\EasyChangelog.Core\bin\Debug\netstandard2.1\EasyChangelog.Core.pdb
+C:\Projects\External\easy-changelog\src\EasyChangelog.Core\obj\Debug\netstandard2.1\EasyChangelog.Core.AssemblyInfoInputs.cache
+C:\Projects\External\easy-changelog\src\EasyChangelog.Core\obj\Debug\netstandard2.1\EasyChangelog.Core.AssemblyInfo.cs
+C:\Projects\External\easy-changelog\src\EasyChangelog.Core\obj\Debug\netstandard2.1\EasyChangelog.Core.dll
+C:\Projects\External\easy-changelog\src\EasyChangelog.Core\obj\Debug\netstandard2.1\EasyChangelog.Core.pdb
+C:\Projects\External\easy-changelog\src\EasyChangelog.Core\obj\Debug\netstandard2.1\EasyChangelog.Core.csprojAssemblyReference.cache

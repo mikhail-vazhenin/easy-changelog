@@ -1,0 +1,59 @@
+{
+  "runtimeTarget": {
+    "name": ".NETStandard,Version=v2.1/linux-x64",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETStandard,Version=v2.1": {},
+    ".NETStandard,Version=v2.1/linux-x64": {
+      "EasyChangelog.Core/1.0.0": {
+        "dependencies": {
+          "LibGit2Sharp": "0.26.1"
+        },
+        "runtime": {
+          "EasyChangelog.Core.dll": {}
+        }
+      },
+      "LibGit2Sharp/0.26.1": {
+        "dependencies": {
+          "LibGit2Sharp.NativeBinaries": "2.0.289"
+        },
+        "runtime": {
+          "lib/netstandard2.0/LibGit2Sharp.dll": {
+            "assemblyVersion": "0.26.0.0",
+            "fileVersion": "0.26.1.93"
+          }
+        }
+      },
+      "LibGit2Sharp.NativeBinaries/2.0.289": {
+        "native": {
+          "runtimes/linux-x64/native/libgit2-7ce88e6.so": {
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "EasyChangelog.Core/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "LibGit2Sharp/0.26.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-CGEI8n5QjuQ05KsDYY6+utD1Ovcia1IFIbzA2Z3KjZkybVP9JeftSwCnAuRvVKsL9EPsOU0Eew2QiUfdeyhFYg==",
+      "path": "libgit2sharp/0.26.1",
+      "hashPath": "libgit2sharp.0.26.1.nupkg.sha512"
+    },
+    "LibGit2Sharp.NativeBinaries/2.0.289": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-/bHaWrS2qcviCKnr+98DIKGfPCQByqwU/KzWrOsQnCQaz7DNVs4xMpkrGEhgc2O0aTKCXUb1np8nCl8qrxIuag==",
+      "path": "libgit2sharp.nativebinaries/2.0.289",
+      "hashPath": "libgit2sharp.nativebinaries.2.0.289.nupkg.sha512"
+    }
+  }
+}

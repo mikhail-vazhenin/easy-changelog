@@ -1,0 +1,101 @@
+{
+  "runtimeTarget": {
+    "name": ".NETStandard,Version=v2.1/",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETStandard,Version=v2.1": {},
+    ".NETStandard,Version=v2.1/": {
+      "EasyChangelog.Core/1.0.0": {
+        "dependencies": {
+          "LibGit2Sharp": "0.26.1",
+          "Microsoft.CodeAnalysis.FxCopAnalyzers": "2.9.3"
+        },
+        "runtime": {
+          "EasyChangelog.Core.dll": {}
+        }
+      },
+      "LibGit2Sharp/0.26.1": {
+        "dependencies": {
+          "LibGit2Sharp.NativeBinaries": "2.0.289"
+        },
+        "runtime": {
+          "lib/netstandard2.0/LibGit2Sharp.dll": {
+            "assemblyVersion": "0.26.0.0",
+            "fileVersion": "0.26.1.93"
+          }
+        }
+      },
+      "LibGit2Sharp.NativeBinaries/2.0.289": {},
+      "Microsoft.CodeAnalysis.FxCopAnalyzers/2.9.3": {
+        "dependencies": {
+          "Microsoft.CodeAnalysis.VersionCheckAnalyzer": "2.9.3",
+          "Microsoft.CodeQuality.Analyzers": "2.9.3",
+          "Microsoft.NetCore.Analyzers": "2.9.3",
+          "Microsoft.NetFramework.Analyzers": "2.9.3"
+        }
+      },
+      "Microsoft.CodeAnalysis.VersionCheckAnalyzer/2.9.3": {},
+      "Microsoft.CodeQuality.Analyzers/2.9.3": {},
+      "Microsoft.NetCore.Analyzers/2.9.3": {},
+      "Microsoft.NetFramework.Analyzers/2.9.3": {}
+    }
+  },
+  "libraries": {
+    "EasyChangelog.Core/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "LibGit2Sharp/0.26.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-CGEI8n5QjuQ05KsDYY6+utD1Ovcia1IFIbzA2Z3KjZkybVP9JeftSwCnAuRvVKsL9EPsOU0Eew2QiUfdeyhFYg==",
+      "path": "libgit2sharp/0.26.1",
+      "hashPath": "libgit2sharp.0.26.1.nupkg.sha512"
+    },
+    "LibGit2Sharp.NativeBinaries/2.0.289": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-/bHaWrS2qcviCKnr+98DIKGfPCQByqwU/KzWrOsQnCQaz7DNVs4xMpkrGEhgc2O0aTKCXUb1np8nCl8qrxIuag==",
+      "path": "libgit2sharp.nativebinaries/2.0.289",
+      "hashPath": "libgit2sharp.nativebinaries.2.0.289.nupkg.sha512"
+    },
+    "Microsoft.CodeAnalysis.FxCopAnalyzers/2.9.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-k8wrTEpm0BE16zxqOHJ4xXxsWTbx5oINrgkLrMc3US8H/LJAx0OyXmTGOuwGEM2Tqa6L5RU1MPgeiWKwAMVkuw==",
+      "path": "microsoft.codeanalysis.fxcopanalyzers/2.9.3",
+      "hashPath": "microsoft.codeanalysis.fxcopanalyzers.2.9.3.nupkg.sha512"
+    },
+    "Microsoft.CodeAnalysis.VersionCheckAnalyzer/2.9.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-jUQbGsWTF/x4a6ZiWfXvOL3f9LFS7L7QkrDhdv25BaYQg4K7yzBMYcElN3le5S6dk7JG8F3AjRnlXp9QTGcBNg==",
+      "path": "microsoft.codeanalysis.versioncheckanalyzer/2.9.3",
+      "hashPath": "microsoft.codeanalysis.versioncheckanalyzer.2.9.3.nupkg.sha512"
+    },
+    "Microsoft.CodeQuality.Analyzers/2.9.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-5KFSFcQjibITq33jojBITiGIZZkf2OMdggT7ZeNryMAUkT3VkPB/csRWaA8erItQlEvrBzgIwzYnW0531HFV7g==",
+      "path": "microsoft.codequality.analyzers/2.9.3",
+      "hashPath": "microsoft.codequality.analyzers.2.9.3.nupkg.sha512"
+    },
+    "Microsoft.NetCore.Analyzers/2.9.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-6QTU/GKuB/s4eX/VD9ZgiIpD8dhP+BuGMUpp2VRDPflrbka+1DmdnayqPO18epUa/79n1OR9uT9hpvd0jgdggg==",
+      "path": "microsoft.netcore.analyzers/2.9.3",
+      "hashPath": "microsoft.netcore.analyzers.2.9.3.nupkg.sha512"
+    },
+    "Microsoft.NetFramework.Analyzers/2.9.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-umTMyEaz29EkSuTNJ3As2wrhomQqqQfkBURZHWh59d+LwAbA7YYveUwe6ZFSx1A83pJRQVnsqaSBPbfQ5+niaA==",
+      "path": "microsoft.netframework.analyzers/2.9.3",
+      "hashPath": "microsoft.netframework.analyzers.2.9.3.nupkg.sha512"
+    }
+  }
+}

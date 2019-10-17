@@ -11,16 +11,22 @@ namespace EasyChangelog
     {
         static void Main(string[] args)
         {
-            Parser.Default.ParseArguments<VersionOptions, ChangelogOptions>(args)
-                 .WithParsed<VersionOptions>(versionOptions =>
-                    DependencyRegistration.BuildServiceProvider(versionOptions)
-                    .GetService<VersionCommand>()
-                    .Run(versionOptions))
-                 .WithParsed<ChangelogOptions>(changelogOptions =>
-                    DependencyRegistration.BuildServiceProvider(changelogOptions)
-                    .GetService<ChangelogCommand>()
-                    .Run(changelogOptions))
-                 .WithNotParsed((errs) => throw new AggregateException(errs.Select(e => new Exception(e.ToString()))));
+
+            Parser.Default.ParseArguments<ChangelogOptions, CurrentVersionOptions, NextVersionOptions>(args)
+                    .WithParsed<CurrentVersionOptions>(versionOptions =>
+                       DependencyRegistration.BuildServiceProvider(versionOptions)
+                       .GetService<CurrentVersionCommand>()
+                       .Run(versionOptions))
+                    .WithParsed<NextVersionOptions>(versionOptions =>
+                       DependencyRegistration.BuildServiceProvider(versionOptions)
+                       .GetService<NextVersionCommand>()
+                       .Run(versionOptions))
+                    .WithParsed<ChangelogOptions>(changelogOptions =>
+                       DependencyRegistration.BuildServiceProvider(changelogOptions)
+                       .GetService<ChangelogCommand>()
+                       .Run(changelogOptions))
+                    .WithNotParsed((errs) => Console.Write(string.Join(Environment.NewLine, errs.Select(e => e.ToString()))));
+
         }
     }
 }
