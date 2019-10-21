@@ -3,3 +3,7 @@ src/EasyChangelog/obj
 src/EasyChangelog/bin
 src/.vs
 *.orig
+src/EasyChangelog.Core/bin
+src/EasyChangelog.Core/obj
+src/EasyChangelog.Core/bin
+src/EasyChangelog.Core/bin

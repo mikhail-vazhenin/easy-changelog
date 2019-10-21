@@ -9,7 +9,6 @@ namespace EasyChangelog.Core.Interfaces
     {
         ICollection<ConventionalCommit> GetCommits(Version fromVersion);
         Version GetLastReleaseVersion();
-        void AddVersionTag(string sha, Version nextVersion);
         string PushChangelog(string changelogFullName, Version nextVersion, string token);
     }
 }

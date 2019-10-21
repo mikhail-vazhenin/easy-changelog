@@ -45,28 +45,7 @@ namespace EasyChangelog.Tools
             var releaseCommitMessage = $"chore(release): {nextVersion}";
             var commit = _repository.Commit(releaseCommitMessage, author, committer);
 
-            var pushOptions = new PushOptions()
-            {
-                CredentialsProvider = (_url, _user, _cred) => new UsernamePasswordCredentials
-                {
-                    Username = "changelog-builder",
-                    Password = token
-                }
-            };
-
-            var branch = _repository.Branches.FirstOrDefault(b => b.FriendlyName.Equals("master", StringComparison.InvariantCultureIgnoreCase));
-
-            _repository.Network.Push(branch, pushOptions);
             return commit.Sha;
-        }
-
-        public void AddVersionTag(string sha, Version nextVersion)
-        {
-            var versionCommit = _repository.Commits.FirstOrDefault(c => c.Sha.Equals(sha, StringComparison.InvariantCultureIgnoreCase));
-            var author = _repository.Config.BuildSignature(DateTime.Now);
-            var committer = author;
-
-            _repository.Tags.Add($"v{nextVersion}", versionCommit, author, $"{nextVersion}");
         }
 
         private ICollection<Commit> GetCommitsSinceVersion(Tag versionTag)

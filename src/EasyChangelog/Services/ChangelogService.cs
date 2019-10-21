@@ -35,12 +35,11 @@ namespace EasyChangelog.Services
             return changelogText;
         }
 
-        public void PushChanges(string workingDir, Version nextVersion, string token)
+        public void CommitChanges(string workingDir, Version nextVersion, string token)
         {
             var changelogFullName = GetChangelogFullname(workingDir);
 
             var sha = _versionControl.PushChangelog(changelogFullName, nextVersion, token);
-            _versionControl.AddVersionTag(sha, nextVersion);
         }
 
         private ChangelogBuilder BuildChangelog(string chnagelogFileName, Version fromVersion, Version nextVersion)

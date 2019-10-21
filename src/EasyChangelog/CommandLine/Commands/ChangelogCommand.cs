@@ -30,7 +30,7 @@ namespace EasyChangelog.CommandLine.Commands
             {
                 if (changelogOptions.Push)
                 {
-                    _changelogService.PushChanges(changelogOptions.WorkingDirectory, nextVersion, changelogOptions.GitToken);
+                    _changelogService.CommitChanges(changelogOptions.WorkingDirectory, nextVersion, changelogOptions.GitToken);
                 }
             }
         }
